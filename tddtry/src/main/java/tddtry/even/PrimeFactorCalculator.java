@@ -7,10 +7,11 @@ public class PrimeFactorCalculator {
 
 	List<Integer> getPrimeFactors(int input)
 	{
+		List<Integer> result = new ArrayList<Integer>();
 		if(input == 2)
 		{
-			return new ArrayList<Integer>(2);
+			result.add(2);
 		}
-		return new ArrayList<Integer>();
+		return result;
 	}
 }
