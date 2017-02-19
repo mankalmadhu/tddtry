@@ -1,36 +1,49 @@
 package tddtry.even;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+@RunWith(Parameterized.class)
 public class PrimeFactorCaclulatorTest {
 
-	@Test
-	public void testForOne() {
-		List<Integer> primeFactors = new PrimeFactorCalculator().getPrimeFactors(1);
-		assertTrue(primeFactors.isEmpty());
+	public PrimeFactorCaclulatorTest(Integer inputNumber, List<Integer> expectedResult) {
+		super();
+		this.input = inputNumber;
+		this.expectedResult = expectedResult;
+		this.primeFactorCalculator = new PrimeFactorCalculator();
 	}
+	
+	 @Parameterized.Parameters
+	   public static Collection<Object[]> primeNumbers() {
+	      return Arrays.asList(new Object[][] {
+	         { 1, new ArrayList<Integer>() },
+	         { 2, new ArrayList<Integer>(Arrays.asList(2))},
+	         { 3, new ArrayList<Integer>(Arrays.asList(3))},
+	         { 4, new ArrayList<Integer>(Arrays.asList(2,2))},
+	         { 5, new ArrayList<Integer>(Arrays.asList(5))},
+	         { 6, new ArrayList<Integer>(Arrays.asList(2,3))},
+	         { 7, new ArrayList<Integer>(Arrays.asList(7))},
+	         { 8, new ArrayList<Integer>(Arrays.asList(2,2,2))},
+	         { 9, new ArrayList<Integer>(Arrays.asList(3,3))}
+	      });
+	   }
+
 
 	@Test
-	public void testForTwo() {
-		List<Integer> primeFactors = new PrimeFactorCalculator().getPrimeFactors(2);
-		assertTrue(primeFactors.get(0) == 2);
+	public void testPrimeFactors() {
+		assertEquals(expectedResult, primeFactorCalculator.getPrimeFactors(input));
 	}
 
-	@Test
-	public void testForThree() {
-		List<Integer> primeFactors = new PrimeFactorCalculator().getPrimeFactors(3);
-		assertTrue(primeFactors.get(0) == 2);
-	}
-
-	@Test
-	public void testForFour() {
-		assertEquals(new ArrayList<Integer>(Arrays.asList(2, 2)), new PrimeFactorCalculator().getPrimeFactors(4));
-	}
+	private Integer input;
+	private List<Integer> expectedResult;
+	private PrimeFactorCalculator primeFactorCalculator;
 
 }
